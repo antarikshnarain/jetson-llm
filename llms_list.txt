@@ -1,0 +1,2 @@
+embeddinggemma
+gemma3
