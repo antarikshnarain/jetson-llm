@@ -1,0 +1,31 @@
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    runtime: nvidia
+    environment:
+      - JETSON_JETPACK=6
+      - OLLAMA_BASE_URL=http://localhost:11434
+    volumes:
+      - $HOME/data/open-webui:/app/backend/data
+    # ports:
+      # - "5000:8080"
+    network_mode: host
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    runtime: nvidia
+    environment:
+      - JETSON_JETPACK=6
+    volumes:
+      - $HOME/data/ollama:/root/.ollama
+    # ports:
+      # - "11434:11434"
+    entrypoint: ["ollama", "serve"]
+    network_mode: host
+    
+
+networks:
+  default:
+    driver: bridge
